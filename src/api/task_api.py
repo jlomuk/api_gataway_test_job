@@ -42,7 +42,7 @@ async def add_task(new_task: task.CreateTaskRequest, user: auth.User = Depends(a
 
 @task_router.delete("/{task_id}",
                     description='Удаление задачи по id',
-                    status_code=status.HTTP_404_NOT_FOUND)
+                    status_code=status.HTTP_204_NO_CONTENT)
 async def delete_task(task_id: int, user=Depends(auth_wrapper)):
     url = f"{settings.TASK_BACKEND_SERVICE.rstrip('/')}/task/{task_id}"
     result = await request.request(url, 'delete', params={'user_id': user.id})
